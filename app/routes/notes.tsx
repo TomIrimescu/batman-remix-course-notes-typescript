@@ -1,5 +1,5 @@
-import { ActionArgs, redirect } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { ActionArgs, json, redirect } from '@remix-run/node';
+import { Link, useCatch, useLoaderData } from '@remix-run/react';
 
 //* surfacing styles approach
 import NewNote, { links as newNoteLinks } from '~/components/NewNote';
@@ -28,13 +28,22 @@ export default function NotesPage() {
 
 export async function loader() {
   const notes: Note[] = await getStoredNotes();
+  if (!notes || notes.length === 0) {
+    throw json(
+      { message: 'Could not find any notes.' },
+      {
+        status: 404,
+        statusText: 'Not Found',
+      }
+    );
+  }
   return notes;
 }
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const noteData = Object.fromEntries(formData);
-  //* Optional noteData extraction
+  //* Optional noteData data extraction
   // const noteData = {
   //   title: formData.get('title'),
   //   content: formData.get('content'),
@@ -67,6 +76,20 @@ type ErrorProps = {
     message: string;
   };
 };
+
+//* Route specific error response CatchBoundary
+export function CatchBoundary() {
+  const caughtResponse = useCatch();
+
+  const message: string = caughtResponse.data?.message || 'Data not found.';
+
+  return (
+    <main>
+      <NewNote />
+      <p className='info-message'>{message}</p>
+    </main>
+  );
+}
 
 export function ErrorBoundary({ error }: ErrorProps) {
   return (
