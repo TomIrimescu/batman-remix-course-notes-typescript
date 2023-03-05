@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 
 type Note = {
-  id: number;
+  id: string;
   title: string;
   content: string;
 };

@@ -10,7 +10,7 @@ import NoteList, { links as noteListLinks } from '~/components/NoteList';
 import { getStoredNotes, storeNotes } from '~/data/notes';
 
 type Note = {
-  id: number;
+  id: string;
   title: string;
   content: string;
 };
