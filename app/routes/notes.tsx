@@ -1,4 +1,4 @@
-import { ActionArgs, json, redirect } from '@remix-run/node';
+import { ActionArgs, json, redirect, MetaFunction } from '@remix-run/node';
 import { Link, useCatch, useLoaderData } from '@remix-run/react';
 
 //* surfacing styles approach
@@ -71,9 +71,10 @@ export function links() {
   return [...newNoteLinks(), ...noteListLinks()];
 }
 
-type ErrorProps = {
-  error: {
-    message: string;
+export const meta: MetaFunction = () => {
+  return {
+    title: 'My Notes',
+    description: 'These are all my notes.',
   };
 };
 
@@ -90,6 +91,12 @@ export function CatchBoundary() {
     </main>
   );
 }
+
+type ErrorProps = {
+  error: {
+    message: string;
+  };
+};
 
 export function ErrorBoundary({ error }: ErrorProps) {
   return (

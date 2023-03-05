@@ -39,12 +39,6 @@ export default function App() {
   );
 }
 
-type ErrorProps = {
-  error: {
-    message: string;
-  };
-};
-
 //* Root level CatchBoundary catches all unhandled error
 //* responses generated anywhere else in the application
 export function CatchBoundary() {
@@ -74,6 +68,12 @@ export function CatchBoundary() {
     </html>
   );
 }
+
+type ErrorProps = {
+  error: {
+    message: string;
+  };
+};
 
 export function ErrorBoundary({ error }: ErrorProps) {
   return (
