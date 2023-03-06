@@ -1,3 +1,4 @@
+import type { LinksFunction } from '@remix-run/node';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
 
 import newNoteStyles from './NewNote.css';
@@ -34,6 +35,6 @@ function NewNote() {
 
 export default NewNote;
 
-export function links() {
+export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: newNoteStyles }];
-}
+};

@@ -1,4 +1,5 @@
-import { ActionArgs, json, redirect, MetaFunction } from '@remix-run/node';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import { ActionArgs, json, redirect } from '@remix-run/node';
 import { Link, useCatch, useLoaderData } from '@remix-run/react';
 
 //* surfacing styles approach
@@ -67,9 +68,9 @@ export async function action({ request }: ActionArgs) {
 }
 
 //* surfacing styles approach
-export function links() {
+export const links: LinksFunction = () => {
   return [...newNoteLinks(), ...noteListLinks()];
-}
+};
 
 export const meta: MetaFunction = () => {
   return {

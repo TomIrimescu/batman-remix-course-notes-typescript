@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
 import {
   Link,
   Links,
@@ -102,6 +102,6 @@ export function ErrorBoundary({ error }: ErrorProps) {
   );
 }
 
-export function links() {
+export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: mainStyles }];
-}
+};
