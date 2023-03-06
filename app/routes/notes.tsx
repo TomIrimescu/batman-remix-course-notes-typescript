@@ -42,7 +42,7 @@ export async function loader() {
 
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
-  const noteData = Object.fromEntries(formData);
+  const noteData = Object.fromEntries(formData) as Note;
   //* Optional noteData data extraction
   // const noteData = {
   //   title: formData.get('title'),
@@ -50,7 +50,7 @@ export async function action({ request }: ActionArgs) {
   // };
 
   if (noteData.title !== null) {
-    if (String(noteData.title).trim().length < 5) {
+    if (noteData.title.trim().length < 5) {
       return { message: 'Invalid title - must be at least 5 characters long.' };
     }
   }
